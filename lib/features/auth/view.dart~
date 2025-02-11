@@ -1,0 +1,29 @@
+// TODO: Implement features/feature_name/view.dart
+
+import 'package:flutter/material.dart';
+import 'package:unimap/config/themes.dart';
+import 'package:unimap/shared/utils.dart';
+import 'package:unimap/shared/widgets/custom_elevated_button.dart';
+
+class StartScreen extends StatelessWidget {
+  const StartScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            Image.asset(AppImages.background, fit: BoxFit.cover, width:800,),
+            SizedBox(height: 20,),
+            Text("UniMap", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30,color:AppTheme.primaryColor ),),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: CustomElevatedButton(onPressed: () {} , child: Text("Get Started"),),
+            ),
+          ],
+        )
+    );
+  }
+}
