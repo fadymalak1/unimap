@@ -6,8 +6,8 @@ import 'package:unimap/config/themes.dart';
 import 'package:unimap/shared/utils.dart';
 import 'package:unimap/shared/widgets/custom_elevated_button.dart';
 
-class GetStartedView extends StatelessWidget {
-  const GetStartedView({super.key});
+class MainView extends StatelessWidget {
+  const MainView({super.key});
 
   @override
   Widget build(BuildContext context) {

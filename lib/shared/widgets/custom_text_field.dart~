@@ -5,7 +5,7 @@ class CustomTextField extends StatefulWidget {
   final IconData? prefixIcon;
   final bool obscureText;
   final TextEditingController controller;
-  final Function(String)? onChanged;
+  final Function(String) onChanged;
   final bool hasSuffixIcon;
   final String? Function(String?)? validator; // Add validator
 
@@ -15,7 +15,7 @@ class CustomTextField extends StatefulWidget {
     this.prefixIcon,
     this.obscureText = false,
     required this.controller,
-    this.onChanged,
+    required this.onChanged,
     this.hasSuffixIcon = false,
     this.validator, // Add validator
   });

@@ -1,6 +1,6 @@
 // TODO: Implement config/constants.dart
 
-class Constants {
+class AppConstants {
   static const String appName = 'Unimap';
   static const String appVersion = '1.0.0';
   static const String appBuildNumber = '1';
@@ -13,6 +13,9 @@ class Constants {
   static const String defaultLanguage = 'en';
   static const String defaultCurrency = 'USD';
 
+  static const String usersCollection = "users";
 
 
 }
+
+
