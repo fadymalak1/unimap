@@ -5,7 +5,6 @@ import 'package:dartz/dartz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
 
-final authRepositoryProvider = Provider<AuthRepository>((ref) => AuthRepository());
 
 class AuthRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -67,9 +66,26 @@ class AuthRepository {
 
   Future<void> _storeUserSession(UserModel user) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString("userSession", user.uid);
+    await prefs.setString("userSession", user.uid); // Store only UID
   }
 
+ Future<void> deleteAccount() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      await user.delete();
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove("userSession");
+ }
+
+ Future<void> changePassword (String newPassword) async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      await user.updatePassword(newPassword);
+    }
+ }
+// Fetch user session on app start
   Future<Either<String, UserModel>> getCurrentUser() async {
     final prefs = await SharedPreferences.getInstance();
     final String? uid = prefs.getString("userSession");
@@ -86,4 +102,5 @@ class AuthRepository {
     final UserModel userModel = UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
     return right(userModel);
   }
+
 }

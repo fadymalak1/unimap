@@ -148,4 +148,10 @@ void hideLoadingDialog(BuildContext context) {
 class AppImages{
   static const String logo = 'assets/images/logo.png';
   static const String background = 'assets/images/background.png';
+  static const String logoTransparent = 'assets/images/logo-transparent.png';
+  static const String profile = 'assets/images/profile.png';
+  static const String ar = 'assets/images/ar.svg';
+  static const String en = 'assets/images/en.svg';
+  static const String classs = 'assets/images/class.png';
+  static const String bookmark = 'assets/images/bookmark.png';
 }

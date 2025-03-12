@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:unimap/config/app_loalizations.dart';
 import 'package:unimap/config/themes.dart';
 import 'package:unimap/features/auth/controller.dart';
+import 'package:unimap/shared/providers.dart';
 import 'package:unimap/shared/utils.dart';
 import 'package:unimap/shared/widgets/custom_text_field.dart';
 
@@ -13,6 +15,7 @@ class RegisterView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authControllerProvider);
     final authController = ref.read(authControllerProvider.notifier);
+    final translation = AppLocalizations.of(context)!.translate;
 
     final _formKey = GlobalKey<FormState>(); // Form key for validation
 
@@ -44,7 +47,7 @@ class RegisterView extends ConsumerWidget {
                       Center(child: Image.asset(AppImages.logo, height: 150)),
                       const SizedBox(height: 20),
                       Text(
-                        "Register Now!",
+                        translation("register_now"),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
@@ -53,33 +56,29 @@ class RegisterView extends ConsumerWidget {
                       ),
                       const SizedBox(height: 10),
 
-                      // First Name TextField
+                      // First Name & Last Name TextFields
                       Row(
                         children: [
                           Expanded(
                             child: CustomTextField(
-                              hintText: "First Name",
+                              hintText: translation("first_name"),
                               controller: authController.firstNameController,
-                              onChanged: (value) {},
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter first name';
+                                  return translation("please_enter_first_name");
                                 }
                                 return null;
                               },
                             ),
                           ),
                           const SizedBox(width: 10),
-
-                          // Last Name TextField
                           Expanded(
                             child: CustomTextField(
-                              hintText: "Last Name",
+                              hintText: translation("last_name"),
                               controller: authController.lastNameController,
-                              onChanged: (value) {},
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter last name';
+                                  return translation("please_enter_last_name");
                                 }
                                 return null;
                               },
@@ -91,16 +90,15 @@ class RegisterView extends ConsumerWidget {
 
                       // Email TextField
                       CustomTextField(
-                        hintText: "Enter your email",
+                        hintText: translation("enter_email"),
                         prefixIcon: Icons.email_outlined,
                         controller: authController.emailController,
-                        onChanged: (value) {},
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
+                            return translation("please_enter_email");
                           }
                           if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$').hasMatch(value)) {
-                            return 'Please enter a valid email';
+                            return translation("enter_valid_email");
                           }
                           return null;
                         },
@@ -109,18 +107,17 @@ class RegisterView extends ConsumerWidget {
 
                       // Password TextField
                       CustomTextField(
-                        hintText: "Enter your password",
+                        hintText: translation("enter_password"),
                         prefixIcon: Icons.lock_outline,
                         obscureText: true,
                         hasSuffixIcon: true,
                         controller: authController.passwordController,
-                        onChanged: (value) {},
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
+                            return translation("please_enter_password");
                           }
                           if (value.length < 6) {
-                            return 'Password must be at least 6 characters';
+                            return translation("password_length");
                           }
                           return null;
                         },
@@ -151,7 +148,7 @@ class RegisterView extends ConsumerWidget {
                           ),
                           child: authState.isLoading
                               ? const CircularProgressIndicator(color: Colors.white)
-                              : const Text("Register", style: TextStyle(color: Colors.white, fontSize: 18)),
+                              : Text(translation("register"), style: const TextStyle(color: Colors.white, fontSize: 18)),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -161,10 +158,10 @@ class RegisterView extends ConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text("Already have an account?"),
+                            Text(translation("already_have_account")),
                             TextButton(
                               onPressed: () => context.pop("/login"),
-                              child: Text("Login", style: TextStyle(color: AppTheme.primaryColor)),
+                              child: Text(translation("login"), style: TextStyle(color: AppTheme.primaryColor)),
                             ),
                           ],
                         ),

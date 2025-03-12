@@ -35,7 +35,6 @@ class AuthController extends StateNotifier<AuthState> {
 
   Future<void> logout(BuildContext context) async {
     state = state.copyWith(isLoading: true);
-    final translate=AppLocalizations.of(context)!.translate;
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -43,7 +42,7 @@ class AuthController extends StateNotifier<AuthState> {
         return AlertDialog(
           title: Center( // Center the title
             child: Text(
-              translate("Are you sure you want to logout?"),
+              'Are you sure you want to logout?',
               textAlign: TextAlign.center, // Ensure text is centered
             ),
           ),
@@ -62,7 +61,7 @@ class AuthController extends StateNotifier<AuthState> {
                     onPressed: () {
                       context.pop();
                     },
-                    child: Text(translate("Cancel")),
+                    child: const Text('Cancel'),
                   ),
                 ),
                 SizedBox(width: 10),
@@ -83,7 +82,7 @@ class AuthController extends StateNotifier<AuthState> {
                             context.go('/login');
                           });
                     },
-                    child: Text(translate("Logout")),
+                    child: const Text('Logout'),
                   ),
                 ),
               ],
@@ -96,6 +95,21 @@ class AuthController extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: false);
   }
 
+  Future<void> loginAsGuest(BuildContext context) async {
+    state = state.copyWith(
+      isLoading: true,
+      currentUser: UserModel(
+        uid: "guest",
+        firstName: "Guest",
+        lastName: "User",
+        email: "guest@unimap.com",
+        favoritePlaces: [],
+      ),
+    );
+
+    context.go('/layout');
+    state = state.copyWith(isLoading: false);
+  }
 
   Future<void> deleteAccount(BuildContext context) async {
     final translate = AppLocalizations.of(context)!.translate;

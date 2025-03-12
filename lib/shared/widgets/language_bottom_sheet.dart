@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:unimap/config/app_loalizations.dart';
+import 'package:unimap/shared/providers.dart';
+import 'package:unimap/shared/utils.dart';
+
+class LanguageBottomSheet extends ConsumerWidget {
+  const LanguageBottomSheet({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localeProvider);
+    final translate = AppLocalizations.of(context)!.translate;
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            translate('Select Language'),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          const SizedBox(height: 16),
+          Card(
+            elevation: 0.5,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            child: ListTile(
+              leading: Card(child: SvgPicture.asset(AppImages.ar, width: 40)),
+              title: const Text('العربية'),
+              trailing: locale.languageCode == 'ar'
+                  ? const Icon(Icons.check, color: Colors.blue)
+                  : null,
+              onTap: () {
+                ref.read(localeProvider.notifier).setLocale(const Locale('ar'));
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          SizedBox(height: 5,),
+          Card(
+            elevation: 0.5,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            child: ListTile(
+              leading: Card(child: SvgPicture.asset(AppImages.en, width: 40)),
+              title: const Text('English'),
+              trailing: locale.languageCode == 'en'
+                  ? const Icon(Icons.check, color: Colors.blue)
+                  : null, 
+              onTap: () {
+                ref.read(localeProvider.notifier).setLocale(const Locale('en'));
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
